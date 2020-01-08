@@ -25,6 +25,32 @@ Profile.findProfile=function findProfile(id, result){
       },
 
 
+
+      Profile.usersofEmployee=function usersofEmployee(id, result){
+          console.log('asasas'+id);
+              return new Promise( ( resolve, reject ) => {
+                /*select a.name,b.role_name,c.phone
+from user as a
+left join role as b on a.role_id = b.id
+left join profile as c on a.id = c.user_id where a.parent_user=53
+*/
+
+              sql.query("select a.name,b.role_name,a.status,c.phone from user as a left join role as b on a.role_id = b.id left join profile as c on a.id = c.user_id where a.parent_user = ? ", id, function (err, res) {             
+                if(err) {
+                    console.log("error Profile model: ", err);
+                    return reject( err );
+                }
+                else{
+                    
+                   return resolve(res);
+                }
+            }); 
+              });  
+              
+            },
+
+
+
       Profile.save= function save(newProfile, result){
         return new Promise( ( resolve, reject ) => {
        sql.query('INSERT INTO profile set phone='+newProfile.phone+', user_id='+newProfile.user_id+'', function (err, res) {

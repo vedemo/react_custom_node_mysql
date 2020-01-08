@@ -1,9 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
-import { constants } from 'crypto';
 import Spinner from '../layout/Spinner';
 import Sidebar from './Sidebar';
 import TopBanner from './TopBanner';

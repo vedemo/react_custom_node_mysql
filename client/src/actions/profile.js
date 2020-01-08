@@ -3,12 +3,10 @@ import { setAlert } from './alert';
 
 import {
   GET_PROFILE,
-  GET_PROFILES,
   PROFILE_ERROR,
-  UPDATE_PROFILE,
-  CLEAR_PROFILE,
-  ACCOUNT_DELETED,
-  GET_REPOS
+  GET_USEROFEMPLOYEE,
+  USEROFEMPLOYEE_ERROR
+ 
 } from './types';
 const baseURL = 'http://localhost:5000';
 // Get current users profile
@@ -32,7 +30,30 @@ export const getCurrentProfile = () => async dispatch => {
       payload: { msg: 'asas', status: '500' }
     });
   }
-};
+}
+
+//user of employee
+export const loadUserofemployee= ()=> async dispatch=>{
+  
+  try{
+       
+       const res =await axios.get(baseURL+'/api/profile/userofemployee');
+       dispatch({
+           type:GET_USEROFEMPLOYEE,
+           payload:res.data
+       })
+
+  }catch(err){
+  
+   dispatch({
+       type:USEROFEMPLOYEE_ERROR,
+       payload:{ msg: 'load sub user reeor', status: '500' }
+    })
+
+     
+  }
+}
+
 
 
 // Create or update profile

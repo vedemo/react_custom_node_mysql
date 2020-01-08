@@ -11,4 +11,3 @@ logger.info('and over your neighbors dog?');
 logger.warn('Whats great for a snack,');
 logger.info('And fits on your back?');
 logger.error('Its log, log, log');
-

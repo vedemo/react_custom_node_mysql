@@ -1,12 +1,15 @@
 import {
     GET_PROFILE,
     PROFILE_ERROR,
-    CLEAR_PROFILE
+    CLEAR_PROFILE,
+    GET_USEROFEMPLOYEE,
+    USEROFEMPLOYEE_ERROR
    
   } from '../actions/types';
   
   const initialState = {
     profile: null,
+    userofemployee:null,
     loading: true,
     error: {}
   };
@@ -22,6 +25,21 @@ import {
           loading: false
         };
       
+        case GET_USEROFEMPLOYEE:
+          return {
+            ...state,
+            userofemployee: payload,
+            loading: false
+          };
+
+          case USEROFEMPLOYEE_ERROR:
+            return {
+              ...state,
+              error: payload,
+              loading: false
+            };
+  
+
       case PROFILE_ERROR:
         return {
           ...state,

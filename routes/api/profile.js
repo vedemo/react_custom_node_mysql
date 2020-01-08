@@ -50,6 +50,29 @@ router.get('/userdata', auth, async (req, res) => {
 });
 
 
+
+//@ route for get userofemployee
+
+router.get('/userofemployee', auth, async (req, res) => {
+  try {
+   /* const profile = await Profile.findProfile({ user: req.user.id }).populate(
+      'user',
+      ['name', 'avatar']
+    );*/
+
+    const profile = await Profile.usersofEmployee(req.user.id);
+
+    if (!profile) {
+      return res.status(400).json({ msg: 'There is no profile for this user' });
+    }
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 router.get('/',(req,res)=>res.send('profile route'));
 
 //@router for the image upload 

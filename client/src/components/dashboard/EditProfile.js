@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getCurrentProfile,createProfile } from '../../actions/profile';
-import { constants } from 'crypto';
+
 import Spinner from '../layout/Spinner';
 import   './css/style.css';
 
 import Sidebar from './Sidebar';
 import TopBanner from './TopBanner';
+
 
 
 const EditProfile = ({
