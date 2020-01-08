@@ -1,0 +1,14 @@
+
+==========================================server configuration==========================
+run server =>npm run server
+
+
+===============client react =============================================react setup in client
+
+npx create-react-app client
+
+for bot run at same time 
+
+npm run dev its start both port 3000,5000 all looks good and its using concurrently npm package and for it 
+in node package installation
+ "dev":"concurrently \"npm run server\" \"npm run client\""
