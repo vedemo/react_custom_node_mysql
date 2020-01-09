@@ -22,10 +22,16 @@ const Sidebar = ({auth:{isAuthenticated,loading},logout,
 
 // var menuCount = 
 
-
 let location = useLocation();
-// console.log(location.pathname);	
-if(location.pathname=='/editProfile'){
+var actineName   = '';
+if(location.pathname){
+	var actineName = location.pathname;
+	var actineName = actineName.replace("/", "");
+}
+
+if(['my-projects', 'create-project-task'].indexOf(actineName)>-1){
+    var menuCount = 1;
+} else if(['editProfile' ,''].indexOf(actineName)>-1){
     var menuCount = 3;
 } else {
     var menuCount = 0;
@@ -49,9 +55,6 @@ const alert1 = e =>{
     }   
 } 
 
-//console.log('ddd'+count);
-
-
 const authLinks = (  
     <div id="left" className={(menu==true ? 'active_menu' : 'in_active_menu')}>
         <div className="menu_scroll">
@@ -70,7 +73,7 @@ const authLinks = (
             </div>
             <ul id="menu">
                 <li className={"dropdown_menu " + (count==0 ? 'active' : '')}>
-                    <Link to="/dashboard" id='0' onClick={e=>alert1(e.target.id)}>
+                    <Link to="dashboard" id='0' onClick={e=>alert1(e.target.id)}>
                         <i className="fa fa-home"></i>
                         <span className="link-title menu_hide">Home</span>
                     </Link>
@@ -83,12 +86,20 @@ const authLinks = (
                         <span  id='1' onClick={e=>alert1(e.target.id)} className="fa arrow menu_hide"></span>
                     </Link>
                     <ul className={"sidebarbottom collapse  " + (count==1 ? 'show' : '')}>  
-                        <li>
-                            <a href="animations.html">
+                    	<li className={location.pathname + (count==1 ? 'show' : '')}>
+                            <Link to="my-projects" id='1' onClick={e=>alert1(e.target.id)}>
                                 <i className="fa fa-angle-right"></i>
-                                &nbsp; Animations
-                            </a>
+                                &nbsp; My Projects
+                            </Link>
                         </li>
+
+                        <li>
+                            <Link to="my-projects" id='1' onClick={e=>alert1(e.target.id)}>
+                                <i className="fa fa-angle-right"></i>
+                                &nbsp; Create Project & Task
+                            </Link>
+                        </li>
+
                         <li>
                             <a href="sliders.html">
                                 <i className="fa fa-angle-right"></i>
@@ -132,7 +143,7 @@ const authLinks = (
                     </Link>
                     <ul className={"sidebarbottom collapse  " + (count==3 ? 'show' : '')}>
                         <li>
-                            <Link to="/editProfile" id='3' onClick={e=>alert1(e.target.id)}>
+                            <Link to="editProfile" id='3' onClick={e=>alert1(e.target.id)}>
                                 <i className="fa fa-angle-right"></i>
                                 &nbsp; Edit Profile
                             </Link>

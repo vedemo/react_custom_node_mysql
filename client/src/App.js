@@ -8,6 +8,8 @@ import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 
+import Myprojects from './components/dashboard/Myprojects';
+import Createproject from './components/dashboard/Createproject';
 
 import EditProfile from './components/dashboard/EditProfile';
 import UserSetup from './components/dashboard/UserSetup';
@@ -43,6 +45,10 @@ const App = ()=>{
     <Route exact path='/register' component={Register} />
     <Route exact path='/login' component={Login} />
     <PrivateRoute exact path='/dashboard' component={Dashboard} />
+
+    <PrivateRoute exact path='/my-projects' component={Myprojects} />
+    <PrivateRoute exact path='/create-project-task' component={Createproject} />
+
     <PrivateRoute exact path='/editProfile' component={EditProfile} />
     <PrivateRoute exact path='/usersetup' component={UserSetup} />
     </switch>

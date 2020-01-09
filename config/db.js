@@ -29,8 +29,7 @@ connection.getConnection(function(err,connection) {
     if (err) {
         //console.error('error connecting: ' + err.stack);
         logger.info('request comming to db in error  :  ',connection, ' Printed at ', new Date().toJSON());
-        res.json({"code" : 100, "status" : "Error in connection database"});
-         
+        err.json({"code" : 100, "status" : "Error in connection database"});
         return;
       }
       console.log('connected as id ' + connection.threadId);
