@@ -5,30 +5,36 @@ import axios from 'axios';
 class Upload extends Component {
   UPLOAD_ENDPOINT = 'http://localhost:5000/api/profile/userimage';
     constructor(props){
+      // console.log(props); 
       super(props)
       this.state = {
-
-        file: 'http://localhost:5000/routes/api/images/'+ (this.props.auth.user[0].profile_image ? this.props.auth.user[0].profile_image : 'default.jpg' ),
-        
+        // {this.props.auth.user && this.props.auth.user[0].profile_image}
+        file: '',
       } 
       this.handleChange = this.handleChange.bind(this);
     } 
 
+    getData(){
+      this.setState({
+        file:'http://localhost:5000/routes/api/images/'+ (this.props.auth.user[0].profile_image ? this.props.auth.user[0].profile_image : 'default.jpg' )
+      })
+    }
+
+    componentDidMount(){
+      this.getData();
+    }
     
     handleChange(event) {
-
       this.setState({
         file: URL.createObjectURL(event.target.files[0])
       })
-
       const formData = new FormData();
       formData.append('myFile',event.target.files[0])
       return   axios.post(this.UPLOAD_ENDPOINT, formData,{
-          headers: {
-              'content-type': 'multipart/form-data'
-          }
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
       });
-      
     } 
     
     render() {
@@ -42,14 +48,11 @@ class Upload extends Component {
     }
   }
 
-
   const mapStateToProps = state => ({
     auth: state.auth
   });
 
-
   export default connect(
-    mapStateToProps
-    
+    mapStateToProps 
 )(Upload);
   

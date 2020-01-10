@@ -10,7 +10,7 @@ const initialState={
 }
 
 export default function(state=initialState,action){
-    console.log('router'+action);
+    // console.log('router'+action);
     const {type,payload}=action;
     switch(type){
 

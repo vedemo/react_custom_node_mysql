@@ -41,16 +41,10 @@ const [count, setCount] = useState(menuCount);
 useEffect(() => {
     getCurrentProfile();    
 },[]);
-
-
 const alert1 = e =>{
-    
-    //console.log(e+'=----ddd---=='+count);
     if(count==e){ 
-        //console.log(e+'=----Yes---=='+count);
         setCount(e);
     }else{
-        //console.log(e+'=----No---=='+count);
         setCount(e);
     }   
 } 
@@ -94,23 +88,23 @@ const authLinks = (
                         </li>
 
                         <li>
-                            <Link to="my-projects" id='1' onClick={e=>alert1(e.target.id)}>
+                            <Link to="create-project-task" id='1' onClick={e=>alert1(e.target.id)}>
                                 <i className="fa fa-angle-right"></i>
                                 &nbsp; Create Project & Task
                             </Link>
                         </li>
 
                         <li>
-                            <a href="sliders.html">
+                            <Link to="#" id='1' onClick={e=>alert1(e.target.id)}>
                                 <i className="fa fa-angle-right"></i>
-                                &nbsp; Sliders
-                            </a>
+                                &nbsp; Bid Management
+                            </Link>
                         </li>
                         <li>
-                            <a href="notifications.html">
+                            <Link to="#" id='1' onClick={e=>alert1(e.target.id)}>
                                 <i className="fa fa-angle-right"></i>
-                                &nbsp; Notifications
-                            </a>
+                                &nbsp; Project Management
+                            </Link>
                         </li> 
                     </ul>
                 </li>
@@ -122,17 +116,30 @@ const authLinks = (
                     </Link>
                     <ul className={"sidebarbottom collapse  " + (count==2 ? 'show' : '')}>
                         <li>
-                            <a href="widgets1.html">
+                            <Link to="#" id='2' onClick={e=>alert1(e.target.id)}>
                                 <i className="fa fa-angle-right"></i>
-                                &nbsp; Widgets 1
-                            </a>
+                                &nbsp; My Contractors
+                            </Link>
                         </li>
                         <li>
-                            <a href="widgets2.html">
+                            <Link to="#" id='2' onClick={e=>alert1(e.target.id)}>
                                 <i className="fa fa-angle-right"></i>
-                                &nbsp; Widgets 2
-                            </a>
-                        </li>                        
+                                &nbsp; Invite Contractors
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link to="#" id='2' onClick={e=>alert1(e.target.id)}>
+                                <i className="fa fa-angle-right"></i>
+                                &nbsp; Manage My Preferred List
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="#" id='2' onClick={e=>alert1(e.target.id)}>
+                                <i className="fa fa-angle-right"></i>
+                                &nbsp; Manage Qualification Standard
+                            </Link>
+                        </li> 
                     </ul>
                 </li>
                 <li  className={"dropdown_menu " + (count ==3 ? 'active' : '')}>
@@ -145,14 +152,26 @@ const authLinks = (
                         <li>
                             <Link to="editProfile" id='3' onClick={e=>alert1(e.target.id)}>
                                 <i className="fa fa-angle-right"></i>
-                                &nbsp; Edit Profile
+                                &nbsp; General Setting
                             </Link>
                         </li>
                         <li>
-                            <a href="form_layouts.html">
+                            <Link to="#" id='3' onClick={e=>alert1(e.target.id)}>
                                 <i className="fa fa-angle-right"></i>
-                                &nbsp; Form Layouts
-                            </a>
+                                &nbsp; Account Subscription
+                            </Link>
+                        </li> 
+                        <li>
+                            <Link to="#" id='3' onClick={e=>alert1(e.target.id)}>
+                                <i className="fa fa-angle-right"></i>
+                                &nbsp; Payment Setting
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="#" id='3' onClick={e=>alert1(e.target.id)}>
+                                <i className="fa fa-angle-right"></i>
+                                &nbsp; User Management
+                            </Link>
                         </li> 
                     </ul>
                 </li>  
