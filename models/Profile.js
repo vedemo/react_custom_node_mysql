@@ -8,7 +8,7 @@ var Profile = function(profile){
 };
 
 Profile.findProfile=function findProfile(id, result){
-  //  console.log('asasas'+id);
+    console.log('profile model asasas'+id);
         return new Promise( ( resolve, reject ) => {
         sql.query("Select * from profile where user_id = ? ", id, function (err, res) {             
           if(err) {
@@ -35,7 +35,7 @@ left join role as b on a.role_id = b.id
 left join profile as c on a.id = c.user_id where a.parent_user=53
 */
 
-              sql.query("select a.name,b.role_name,a.status,c.phone from user as a left join role as b on a.role_id = b.id left join profile as c on a.id = c.user_id where a.parent_user = ? ", id, function (err, res) {             
+              sql.query("select a.name,b.role_name,a.status,a.id,c.phone from user as a left join role as b on a.role_id = b.id left join profile as c on a.id = c.user_id where a.parent_user = ? ", id, function (err, res) {             
                 if(err) {
                     console.log("error Profile model: ", err);
                     return reject( err );
@@ -97,7 +97,39 @@ left join profile as c on a.id = c.user_id where a.parent_user=53
             }
             });  
         }); 
-    }
+    },
+
+
+    Profile.createEmployee= function createEmployee(newProfile, result){
+      return new Promise( ( resolve, reject ) => {
+     sql.query("INSERT INTO user set name='"+newProfile.name+"',role_id='"+newProfile.role+"',password='"+newProfile.password+"',parent_user='"+newProfile.parent_user+"',email='"+newProfile.email+"'", function (err, res) {
+          if(err) {
+          return reject( err );
+          }
+          else{
+              resolve(res.insertId);
+          
+          }
+          });  
+      }).then(function(result) {
+
+        console.log(result); // 1
+      
+        return new Promise((resolve, reject) => { // (*)
+          sql.query("INSERT INTO profile set user_id='"+result+"'", function (err, res) {
+            if(err) {
+            return reject( err );
+            }
+            else{
+              return  resolve(result);
+            
+            }
+            });  
+        
+        });
+      
+      })
+  },
 
 
 

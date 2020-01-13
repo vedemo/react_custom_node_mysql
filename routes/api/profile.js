@@ -5,7 +5,7 @@ const config = require('config');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 var multer  = require('multer');
-
+const bcrypt = require('bcryptjs');
 const path = require('path');
 
 
@@ -35,8 +35,14 @@ router.get('/userdata', auth, async (req, res) => {
       'user',
       ['name', 'avatar']
     );*/
-
-    const profile = await Profile.findProfile(req.user.id);
+   var user_id_all='';
+    if(req.user.id==undefined){
+      user_id_all=req.user.user.id;
+    }else{
+      user_id_all= req.user.id;
+    }
+console.log('profile js'+user_id_all)
+    const profile = await Profile.findProfile(user_id_all);
 
     if (!profile) {
       return res.status(400).json({ msg: 'There is no profile for this user' });
@@ -60,7 +66,13 @@ router.get('/userofemployee', auth, async (req, res) => {
       ['name', 'avatar']
     );*/
 
-    const profile = await Profile.usersofEmployee(req.user.id);
+    var user_id_all='';
+    if(req.user.id==undefined){
+      user_id_all=req.user.user.id;
+    }else{
+      user_id_all= req.user.id;
+    }
+    const profile = await Profile.usersofEmployee(user_id_all);
 
     if (!profile) {
       return res.status(400).json({ msg: 'There is no profile for this user' });
@@ -69,7 +81,7 @@ router.get('/userofemployee', auth, async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Server Error in profile');
   }
 });
 
@@ -91,10 +103,15 @@ router.post('/userimage', auth,upload.single('myFile'), async (req, res) => {
      return res.status(400).json({ msg: 'Please upload image' });
   }
     //res.send(file);
-   
+    var user_id_all='';
+    if(req.user.id==undefined){
+      user_id_all=req.user.user.id;
+    }else{
+      user_id_all= req.user.id;
+    }
     const user_data={
       file:file.originalname,
-      user_id:req.user.id
+      user_id:user_id_all
     }
     
   
@@ -130,15 +147,23 @@ router.put('/userdata',auth, [
   }
 
   const { phone,company,website } = req.body;
+
+  var user_id_all='';
+  if(req.user.id==undefined){
+    user_id_all=req.user.user.id;
+  }else{
+    user_id_all= req.user.id;
+  }
+  
   const newProfile={
     phone,
     company,
     website,
-    user_id:req.user.id
+    user_id:user_id_all
   }
 
       try{
-        const profile = await Profile.findProfile(req.user.id);
+        const profile = await Profile.findProfile(user_id_all);
         if (profile && profile.length) {
            //
            let user_profile_id=  await  Profile.Update(newProfile);
@@ -165,6 +190,80 @@ router.put('/userdata',auth, [
         }
 
 });
+
+
+
+// @route    PUT api/profile/userdata
+// @desc     Get current users profile
+// @access   Private update data
+router.post('/createuserofemployee',auth, [
+  check('email', 'email is required')
+    .not()
+    .isEmpty()
+],async(req,res)=>{
+   
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { name,email,password,role,status=1} = req.body;
+
+  
+  const salt = await bcrypt.genSalt(10);
+
+  var user_id_all='';
+  if(req.user.id==undefined){
+    user_id_all=req.user.user.id;
+  }else{
+    user_id_all= req.user.id;
+  }
+  const newProfile={
+    name,
+    email,
+    password,
+    role,
+    status,
+    parent_user:user_id_all
+  }
+
+      try{
+       /* const profile = await Profile.findProfile(req.user.id);
+        if (profile && profile.length) {
+           //
+           let user_profile_id=  await  Profile.Update(newProfile);
+           console.log('update query'+user_profile_id);
+           res.json({
+            success: true,
+            profile: newProfile
+          });
+        }else{
+        }*/
+          //insert query
+          newProfile.password = await bcrypt.hash(password, salt);
+          newProfile.status = '1';
+               // console.log(user);
+             
+          let user_profile_id=  await  Profile.createEmployee(newProfile);
+          if (user_profile_id) {
+            
+           res.json({
+            success: true,
+            profile: user_profile_id
+          });
+
+        }
+        
+
+             // res.send('user register');
+      }catch (err) {
+          console.error(err.message);
+          res.status(500).send('Server error');
+        }
+
+});
+
+
 
 
 module.exports = router;

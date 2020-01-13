@@ -53,11 +53,28 @@ console.log(userdata.email);
         else{
        // console.log('ajajaja');
         //console.log(res.insertId);
-        return resolve(res.insertId);
+         resolve(res.insertId);
         
         }
         });  
-    } );    
+    } ).then(function(result) {
+
+      console.log(result); // 1
+    
+      return new Promise((resolve, reject) => { // (*)
+        sql.query("INSERT INTO profile set user_id='"+result+"'", function (err, res) {
+          if(err) {
+          return reject( err );
+          }
+          else{
+            return  resolve(result);
+          
+          }
+          });  
+      
+      });
+    
+    })    
        // console.log('gjgjgjg');
        // console.log(abc);
     

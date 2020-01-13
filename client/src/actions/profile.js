@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-
+import setAuthToken  from '../utils/setAuthToken';
 import {
   GET_PROFILE,
   PROFILE_ERROR,
@@ -12,9 +12,12 @@ const baseURL = 'http://localhost:5000';
 // Get current users profile
 
 export const getCurrentProfile = () => async dispatch => {
-  
+  if(localStorage.token){
+    setAuthToken(localStorage.token);
+}
 
   try {
+
     const res = await axios.get(baseURL+'/api/profile/userdata');
 
     dispatch({
@@ -34,7 +37,9 @@ export const getCurrentProfile = () => async dispatch => {
 
 //user of employee
 export const loadUserofemployee= ()=> async dispatch=>{
-  
+  if(localStorage.token){
+    setAuthToken(localStorage.token);
+}
   try{
        
        const res =await axios.get(baseURL+'/api/profile/userofemployee');

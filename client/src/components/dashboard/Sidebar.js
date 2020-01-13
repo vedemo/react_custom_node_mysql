@@ -1,5 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {
+    Link, 
+    BrowserRouter as Router,
+    Switch,
+    useLocation
+    } from "react-router-dom";
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,8 +18,20 @@ const Sidebar = ({auth:{isAuthenticated,loading},logout,
     menu:menu
     
 }) => {
-const [count, setCount] = useState(0);
 
+let location = useLocation();
+var actineName   = '';
+if(location.pathname){
+	var actineName=location.pathname;
+}
+
+if(actineName=='/editProfile'){
+    var menuCount = 3;
+} else {
+    var menuCount = 0;
+}
+
+const [count, setCount] = useState(menuCount);
 
 useEffect(() => {
     getCurrentProfile();    

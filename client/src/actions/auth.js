@@ -59,7 +59,7 @@ export const register =({name,email,password})=>async dispatch=>{
                type:REGISTER_SUCCUSS,
                payload:res.data 
             })
-
+            dispatch(loadUser());
     }catch(err){
 
          const errors=err.response.data.errors;
@@ -67,11 +67,9 @@ export const register =({name,email,password})=>async dispatch=>{
                 errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
          }
         dispatch({
-            type:REGISTER_FAIL,
-            payload:res.data 
+            type:REGISTER_FAIL
          })
-         dispatch(loadUser());
-
+         
     }
 }
 
@@ -104,14 +102,21 @@ export const login =({email,password})=>async dispatch=>{
 
     }catch(err){
 
-       /* const errors=err.response.data.errors;
-         if(errors){
-                errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
-         }*/
-        dispatch({
-            type:LOGIN_FAIL,
-            payload:{ msg: 'load sub user error', status: '500' }
-         })
+        const errors=err.response.data.errors;
+
+        if(errors){
+
+               errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
+
+        }
+
+       dispatch({
+
+           type:LOGIN_FAIL,
+
+           payload:res.data 
+
+        })
 
     }
 }

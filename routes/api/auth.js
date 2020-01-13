@@ -10,12 +10,19 @@ const User = require('../../models/User');
 
 router.get('/', auth, async (req, res) => {
     try {
-        // console.log(req);
-      const user = await User.findById(req.user.id);
+      var user_id_all='';
+      console.log('auth.js'+req.user.id);
+      if(req.user.id==undefined){
+        user_id_all=req.user.user.id;
+      }else{
+        user_id_all= req.user.id;
+      }
+       //  console.log(req.user.user.id);
+      const user = await User.findById(user_id_all);
       res.json(user);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send('Server Error in get request first' );
     }
   });
 

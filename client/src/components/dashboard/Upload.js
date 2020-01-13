@@ -7,13 +7,29 @@ class Upload extends Component {
     constructor(props){
       super(props)
       this.state = {
-
-        file: 'http://localhost:5000/routes/api/images/'+ (this.props.auth.user[0].profile_image ? this.props.auth.user[0].profile_image : 'default.jpg' ),
-        
+        file: '', 
       } 
       this.handleChange = this.handleChange.bind(this);
     } 
+  
+    getData(){
+     
 
+      if(this.props.auth.user){
+          this.setState({        
+                  file:  'http://localhost:5000/routes/api/images/'+ (this.props.auth.user[0].profile_image ? this.props.auth.user[0].profile_image : 'default.jpg' )
+                })
+      }else{
+        this.setState({        
+          file:  'http://localhost:5000/routes/api/images/default.jpg' 
+        })
+      }
+      
+    }
+   
+    componentDidMount(){
+      this.getData();
+    }
     
     handleChange(event) {
 

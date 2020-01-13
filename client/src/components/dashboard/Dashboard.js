@@ -22,6 +22,8 @@ const Dashboard =({
 const [count, setCount] = useState(0);
 const [name, setName] = useState('Flavio');
 
+console.log(user);
+
 useEffect(() => {
     getCurrentProfile();
    // console.log(`Hi ${name} you clicked ${count} times`);

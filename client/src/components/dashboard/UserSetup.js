@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-
+import {Link,Redirect} from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadUserofemployee } from '../../actions/profile';
@@ -33,7 +33,9 @@ if(loading){
 }else{
   if(userofemployee){
       var userofemployee_arr = userofemployee.map(function(obj) {
+       // console.log(Object.keys(obj));
         return Object.keys(obj).map(function(key) { 
+         //  console.log(key);
           return obj[key];
         });
       });
@@ -48,7 +50,8 @@ if(loading){
 
 
   const columns = [
-    {
+
+   /* {
       name: "Name",
       options: {
         filter: false,
@@ -60,6 +63,13 @@ if(loading){
           />
         )
       }
+    },*/
+    {
+      name: "Name",
+      options: {
+        filter: false,
+       
+      }
     },
     {
       name: "Role",
@@ -67,7 +77,6 @@ if(loading){
         filter: true,
       }
     },
-    
     {
       name: "Active",
       options: {
@@ -85,6 +94,24 @@ if(loading){
                 updateValue(event.target.value === "Yes" ? false : true);
               }}
             />
+          );
+
+        }
+      }
+    },
+    {
+      name: "Action",
+      options: {
+        filter: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+           const editurl='editemployeeuser/?id='+value;
+
+          return (
+            <Link className="nav-link" to={editurl} >
+            edit
+          </Link>
+            
+            
           );
 
         }

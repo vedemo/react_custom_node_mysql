@@ -37,7 +37,7 @@ import PropTypes from 'prop-types';
        
     return (
     <section className="container">
-    <h1 className="large text-primary">Sign Up</h1>
+    <h1 className="large text-primary">Sign Up111</h1>
       <p className="lead"><i class="fa fa-user" aria-hidden="true"></i>
            Create Your Account</p>
       <form className="form" onSubmit={e => onSubmit(e) }>

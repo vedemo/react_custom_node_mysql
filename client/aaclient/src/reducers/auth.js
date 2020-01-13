@@ -23,10 +23,11 @@ export default function(state=initialState,action){
             }
 
         case REGISTER_SUCCUSS:
+           // console.log('token1122'+payload.token);
             localStorage.setItem('token',payload.token);
             return{
                 ...state,
-                ...payload,
+                user:payload,
                 isAuthenticated:true,
                 loading:false,
             }

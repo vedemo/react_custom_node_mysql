@@ -10,6 +10,7 @@ import Dashboard from './components/dashboard/Dashboard';
 
 
 import EditProfile from './components/dashboard/EditProfile';
+import Employeeuseredit from './components/dashboard/Employeeuseredit';
 import UserSetup from './components/dashboard/UserSetup';
 import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
@@ -45,6 +46,8 @@ const App = ()=>{
     <PrivateRoute exact path='/dashboard' component={Dashboard} />
     <PrivateRoute exact path='/editProfile' component={EditProfile} />
     <PrivateRoute exact path='/usersetup' component={UserSetup} />
+    <PrivateRoute exact path='/employeeuseredit' component={Employeeuseredit} />
+    
     </switch>
   </section>
 </Fragment>
